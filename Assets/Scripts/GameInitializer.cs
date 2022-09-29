@@ -29,7 +29,7 @@ public class GameInitializer : MonoBehaviour
     {
         if (_planetarySystem == null)
         {
-            throw new System.NullReferenceException("Planetary system is null");
+            throw new System.NullReferenceException(nameof(_planetarySystem));
         }
 
         var deltaTime = Time.deltaTime * _simulationTimeScale;
@@ -40,7 +40,7 @@ public class GameInitializer : MonoBehaviour
     {
         if (_planetaryFactory == null)
         {
-            throw new System.NullReferenceException("Planetary factory is null");
+            throw new System.NullReferenceException(nameof(_planetaryFactory));
         }
 
         _planetarySystem = _planetaryFactory.Create(_mass);

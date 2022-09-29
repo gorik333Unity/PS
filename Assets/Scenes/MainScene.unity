@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mass: 1000
-  _simulationTimeScale: 50
+  _simulationTimeScale: 25
   _planetaryFactory:
     rid: 5756435518256054276
   references:

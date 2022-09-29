@@ -16,7 +16,7 @@ namespace PlanetarySimulation
         {
             if (model == null)
             {
-                throw new System.ArgumentNullException("model");
+                throw new System.ArgumentNullException(nameof(model));
             }
 
             _model = model;
@@ -26,7 +26,7 @@ namespace PlanetarySimulation
         {
             if (planetaryObject == null)
             {
-                throw new System.ArgumentNullException("planetaryObject");
+                throw new System.ArgumentNullException(nameof(planetaryObject));
             }
 
             gameObject.name = planetaryObject.Name;

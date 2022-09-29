@@ -1,5 +1,4 @@
-﻿using Helpers;
-using PlanetarySimulation.Objects;
+﻿using PlanetarySimulation.Objects;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -57,38 +56,20 @@ namespace PlanetarySimulation.PlanetarySystem
         private void BuildSystem(Planet[] planets, PlanetSystemContainer container)
         {
             var prefab = container.CirclePrefab;
-
-            Planet previous = null;
-
             foreach (var item in planets)
             {
                 var circle = Object.Instantiate(prefab, container.transform);
-                SetCircleRadius(circle, item, previous);
                 circle.ModelMeshRenderer.material = item.PlanetModel.MeshRenderer.material;
+                SetCircleRadius(circle, item);
                 item.transform.SetParent(circle.SpawnPoint);
                 item.transform.localPosition = Vector3.zero;
                 _circle.Add(circle);
             }
         }
 
-        private void SetCircleRadius(Circle circle, Planet current, Planet previous)
+        private void SetCircleRadius(Circle circle, Planet current)
         {
             circle.Model.localScale *= (float)current.Size * 2; // diameter
-            if (previous == null)
-            {
-                return;
-            }
-
-            var a = current.PlanetModel.Model.transform.position;
-            var b = previous.PlanetModel.Model.transform.position;
-            var distance = Extensions.PerformanceDistance(a, b);
-            var totalSize = (current.Size + previous.Size) * 2; // diameter
-
-            if (totalSize > distance)
-            {
-                var normalized = distance / totalSize;
-                circle.Model.localScale *= (float)normalized;
-            }
         }
 
         private void InitializeSystem(Planet[] planets)
