@@ -35,7 +35,7 @@ namespace PlanetarySimulation.PlanetarySystem
         {
             foreach (var item in _planet)
             {
-                var planetTransform = item.PlanetModel.Model.transform;
+                var planetTransform = item.transform;
                 var movementAxis = item.PlanetaryObject.PlanetData.MovementAxis;
                 var moveSpeed = item.PlanetaryObject.PlanetData.MoveSpeed;
                 planetTransform.RotateAround(_center.position, movementAxis, deltaTime * moveSpeed);
@@ -46,10 +46,10 @@ namespace PlanetarySimulation.PlanetarySystem
         {
             foreach (var item in _planet)
             {
-                var planetTransform = item.PlanetModel.Model.transform;
-                var movementAxis = item.PlanetaryObject.PlanetData.MovementAxis;
-                var moveSpeed = item.PlanetaryObject.PlanetData.MoveSpeed;
-                planetTransform.RotateAround(_center.position, movementAxis, deltaTime * moveSpeed);
+                var planetModelTransform = item.PlanetModel.Model.transform;
+                var rotationDirection = item.PlanetaryObject.PlanetData.SelfRotationDirection;
+                var rotateSpeed = item.PlanetaryObject.PlanetData.RotateSpeed;
+                planetModelTransform.Rotate(rotationDirection, deltaTime * rotateSpeed);
             }
         }
 

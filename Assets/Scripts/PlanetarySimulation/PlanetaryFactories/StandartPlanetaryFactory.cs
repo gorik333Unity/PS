@@ -16,6 +16,9 @@ namespace PlanetarySimulation.Factories
         [SerializeField]
         private Planet _planetPrefab;
 
+        [SerializeField, Range(1, 2)]
+        private int _minPlanetCount;
+
         [SerializeReference, SubclassSelector]
         private IPlanetaryObject[] _available;
 
@@ -42,18 +45,24 @@ namespace PlanetarySimulation.Factories
         {
             double currentMass = 0d;
             var planets = new List<Planet>();
+            int planetCount = 0;
 
             while (mass > currentMass)
             {
                 var randomPlanet = _available.Random();
                 var copy = randomPlanet.DeepCopy();
                 var data = copy.PlanetData;
+                if (currentMass + data.Mass > mass && planetCount <= _minPlanetCount)
+                {
+                    continue;
+                }
                 data.RandomPlanetData();
                 var planet = Object.Instantiate(_planetPrefab, container.transform);
                 var planetObject = Object.Instantiate(data.Model, planet.transform);
                 InitializePlanet(copy, planet, planetObject);
                 planets.Add(planet);
 
+                planetCount++;
                 currentMass += data.Mass;
             }
 
